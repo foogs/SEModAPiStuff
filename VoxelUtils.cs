@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Sandbox.Game.Entities;
 using Sandbox.ModAPI;
 using VRage.ModAPI;
@@ -41,7 +40,6 @@ namespace FoogsVoxelHelper
         /// <param name="voxel"></param>
         /// <param name="areaWorldRealBox"></param>
         /// <param name="materialsBuf"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void GetMaterialsFromVoxelMapIntersectBox(MyVoxelBase voxel, BoundingBoxD areaWorldRealBox, ref Dictionary<byte, int> materialsBuf, int lod)
         {
             try
@@ -66,7 +64,7 @@ namespace FoogsVoxelHelper
                     Vector3I.Clamp(ref locmax, ref Vector3I.Zero, ref vector3I, out locmax);
                     Vector3I llocmin = locmin - 0;
                     Vector3I llocmax = locmax + 0;
-                    MyStorageData myStorageData = new MyStorageData(MyStorageDataTypeFlags.ContentAndMaterial);                    
+                    MyStorageData myStorageData = new MyStorageData(MyStorageDataTypeFlags.ContentAndMaterial);
                     ClampVoxelCoord(voxel.Storage, ref llocmin, 1);
                     ClampVoxelCoord(voxel.Storage, ref llocmax, 1);
                     llocmin >>= lod;
@@ -133,7 +131,7 @@ namespace FoogsVoxelHelper
             }
             catch
             {
-               // Debug.Chat("catch");
+                // Debug.Chat("catch");
             }
         }
 
@@ -149,7 +147,7 @@ namespace FoogsVoxelHelper
             // Debug.GPS("voxel check", worldAABB.Center);
             // Debug.GPS("voxel check max", worldAABB.Max);
             // Debug.GPS("voxel check min", worldAABB.Min);
-            int num = 0;            
+            int num = 0;
             List<IMyVoxelBase> buf = new List<IMyVoxelBase>();
             MyAPIGateway.Session.VoxelMaps.GetInstances(buf, (x) => x != ignoreVoxelMap && (x is MyPlanet || x is MyVoxelMap));
             foreach (MyVoxelBase myVoxelBase in buf)
@@ -164,7 +162,6 @@ namespace FoogsVoxelHelper
             return num > 0;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ClampVoxelCoord(VRage.ModAPI.IMyStorage self, ref Vector3I voxelCoord, int distance = 100)
         {
             if (self == null)
